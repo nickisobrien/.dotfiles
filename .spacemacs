@@ -312,7 +312,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default sp-escape-quotes-after-insert nil)
-  )
+
 (defun my-setup-indent (n)
   ;; java/c/c++
   (setq c-basic-offset n)
@@ -326,10 +326,8 @@ you should place your code here."
   (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
   (setq css-indent-offset n) ; css-mode
   )
-(my-setup-indent 4) ;
-(setq c-default-style "stroustrup")
-(setq-default tab-width 4
-              indent-tabs-mode t)
+(my-setup-indent 4) ; invoke to set most languages to 4 width indents
+(setq-default indent-tabs-mode t) ; use tabs instead of spaces
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -348,3 +346,4 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+)
