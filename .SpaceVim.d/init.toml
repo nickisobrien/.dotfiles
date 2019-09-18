@@ -29,7 +29,7 @@
 	vimcompatible = true
 	# Expand tabs to spaces?
 	expand_tab = false
-	default_indent = 2
+	default_indent = 4
 	relativenumber = false
 
 # Enable autocomplete layer
