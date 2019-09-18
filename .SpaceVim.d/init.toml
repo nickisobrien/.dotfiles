@@ -30,6 +30,7 @@
 	# Expand tabs to spaces?
 	expand_tab = false
 	default_indent = 2
+	relativenumber = false
 
 # Enable autocomplete layer
 [[layers]]
