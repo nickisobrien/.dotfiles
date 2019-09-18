@@ -8,27 +8,28 @@
 
 # All SpaceVim option below [option] section
 [options]
-    # set spacevim theme. by default colorscheme layer is not loaded,
-    # if you want to use more colorscheme, please load the colorscheme
-    # layer
-    colorscheme = "gruvbox"
-    colorscheme_bg = "dark"
-    # Disable guicolors in basic mode, many terminal do not support 24bit
-    # true colors
-    enable_guicolors = false
-    # Disable statusline separator, if you want to use other value, please
-    # install nerd fonts
-    statusline_separator = "nil"
-    statusline_inactive_separator = "bar"
-    buffer_index_type = 4
-    windows_index_type = 3
-    enable_tabline_filetype_icon = false
-    enable_statusline_mode = false
-    statusline_unicode_symbols = false
-    # Enable vim compatible mode, avoid changing origin vim key bindings
-    vimcompatible = true
-    # Expand tabs to spaces
-    expand_tab = false
+	# set spacevim theme. by default colorscheme layer is not loaded,
+	# if you want to use more colorscheme, please load the colorscheme
+	# layer
+	colorscheme = "molokai"
+	colorscheme_bg = "dark"
+	# Disable guicolors in basic mode, many terminal do not support 24bit
+	# true colors
+	enable_guicolors = false
+	# Disable statusline separator, if you want to use other value, please
+	# install nerd fonts
+	statusline_separator = "nil"
+	statusline_inactive_separator = "bar"
+	buffer_index_type = 4
+	windows_index_type = 3
+	enable_tabline_filetype_icon = false
+	enable_statusline_mode = false
+	statusline_unicode_symbols = false
+	# Enable vim compatible mode, avoid changing origin vim key bindings
+	vimcompatible = true
+	# Expand tabs to spaces?
+	expand_tab = false
+	default_indent = 2
 
 # Enable autocomplete layer
 [[layers]]
@@ -43,3 +44,7 @@ default_height = 30
 
 [[layers]]
 name = "lang#c"
+
+# enable variety of color schemes
+[[layers]]
+name = "colorscheme"
