@@ -1,24 +1,18 @@
-" Use these Vim settings, rather then Vi settings (much better!).
+" Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" TODO: this may not be in the correct place. It is intended to allow overriding <Leader>.
-" source ~/.vimrc.before if it exists.
-if filereadable(expand("~/.vimrc.before"))
-  source ~/.vimrc.before
-endif
-
-" ================ General Config ====================
+" === General Conf
 
 set number                      "Line numbers are good
-set backspace=indent,eol,start  "Allow backspace in insert mode
+"set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
 set showcmd                     "Show incomplete cmds down the bottom
 set showmode                    "Show current mode down the bottom
-set gcr=a:blinkon0              "Disable cursor blink
+"set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
-:set mouse=a                    "Add mouse support
+set mouse=a						"Add mouse support
 
 
 " This makes vim act like all other editors, buffers can
@@ -35,34 +29,17 @@ syntax on
 " the plugins.
 let mapleader=","
 
-" =============== Vundle Initialization ===============
-" This loads all the plugins specified in ~/.vim/vundles.vim
-" Use Vundle plugin to manage all other plugins
-if filereadable(expand("~/.vim/vundles.vim"))
-  source ~/.vim/vundles.vim
-endif
-au BufNewFile,BufRead *.vundle set filetype=vim
-
-" ================ Turn Off Swap Files ==============
+" === Turn Off Swap Files
 
 set noswapfile
 set nobackup
 set nowb
 
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-if has('persistent_undo') && isdirectory(expand('~').'/.vim/backups')
-  silent !mkdir ~/.vim/backups > /dev/null 2>&1
-  set undodir=~/.vim/backups
-  set undofile
-endif
-
-" ================ Indentation ======================
+" === Indentation
 
 set autoindent
-set smartindent
-set smarttab
+" set smartindent
+" set smarttab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
@@ -77,19 +54,18 @@ filetype plugin on
 filetype indent on
 
 " Display tabs and trailing spaces visually
-"set list listchars=tab:\ \ ,trail:·
+set list listchars=tab:\ \ ,trail:·
 
-
-" set nowrap       "Don't wrap lines
+set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 
-" ================ Folds ============================
+" === Folder
 
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
-" ================ Completion =======================
+" === Completion
 
 set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
@@ -104,15 +80,59 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 
-" ================ Scrolling ========================
+" === Scrolling
 
-set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+"set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
-" ================ Search ===========================
+" === Search
 
 set incsearch       " Find the next match as we type the search
 set hlsearch        " Highlight searches by default
 set ignorecase      " Ignore case when searching...
-" set smartcase       " ...unless we type a capital
+set smartcase       " ...unless we type a capital
+
+
+" === Drop the arrow keys
+
+noremap  <Up> ""
+noremap! <Up> <Esc>
+noremap  <Down> ""
+noremap! <Down> <Esc>
+noremap  <Left> ""
+noremap! <Left> <Esc>
+noremap  <Right> ""
+noremap! <Right> <Esc>
+
+" === Map jj to escape
+
+inoremap jj <ESC>
+
+" === VIM Plugin manager
+
+call plug#begin('~/.vim/plugged')
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'preservim/nerdcommenter'
+call plug#end()
+
+" === Colors
+
+if has('nvim') || has('termguicolors')
+	set termguicolors
+endif
+colorscheme challenger_deep
+
+" === CtrlP
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.yardoc\|node_modules\|log\|ios\|android\|tmp$',
+  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+  \ }
+
+
+" === Keep undo history
+
+set undofile
+set undodir=~/.vim/undodir
