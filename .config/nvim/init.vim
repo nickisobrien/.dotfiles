@@ -18,6 +18,7 @@ Plug 'airblade/vim-gitgutter'                                             " http
 Plug 'plasticboy/vim-markdown'                                            " https://github.com/plasticboy/vim-markdown
 Plug 'tpope/vim-rhubarb'                                                  " https://github.com/tpope/vim-rhubarb
 Plug 'tpope/vim-surround'                                                 " https://github.com/tpope/vim-surround
+Plug 'github/copilot.vim'
 call plug#end()
 
 if has('termguicolors')
