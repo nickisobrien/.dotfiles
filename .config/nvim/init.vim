@@ -45,14 +45,22 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ft <cmd>Telescope file_browser<cr>
 
 set expandtab
 set tabstop=2
 set shiftwidth=2
 
-" Comment setup
+" Non-case sensitive searching
+set ignorecase
+
+" Line numbers
+set number
+
+" Some lua setup
 lua << EOF
 require('Comment').setup()
+require('telescope').load_extension('file_browser')
 EOF
 
 " ======== COC SETUP ========
@@ -70,12 +78,6 @@ set updatetime=300
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
-
-" Non-case sensitive searching
-set ignorecase
-
-" Line numbers
-set number
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
