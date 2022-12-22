@@ -3,6 +3,8 @@ Plug 'sainnhe/sonokai'
 Plug 'itchyny/lightline.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'junegunn/gv.vim'                                                    " https://github.com/junegunn/gv.vim
@@ -19,6 +21,8 @@ Plug 'plasticboy/vim-markdown'                                            " http
 Plug 'tpope/vim-rhubarb'                                                  " https://github.com/tpope/vim-rhubarb
 Plug 'tpope/vim-surround'                                                 " https://github.com/tpope/vim-surround
 Plug 'github/copilot.vim'
+Plug 'numToStr/Comment.nvim'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 if has('termguicolors')
@@ -34,7 +38,7 @@ let g:lightline = {}
 let g:lightline.colorscheme = 'sonokai'
 
 " Map jj to escape
-inoremap jj <ESC>
+imap jj <Esc>
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -42,7 +46,14 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+set expandtab
+set tabstop=2
+set shiftwidth=2
 
+" Comment setup
+lua << EOF
+require('Comment').setup()
+EOF
 
 " ======== COC SETUP ========
 " May need for vim (not neovim) since coc.nvim calculate byte offset by count
@@ -59,6 +70,12 @@ set updatetime=300
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
+
+" Non-case sensitive searching
+set ignorecase
+
+" Line numbers
+set number
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
