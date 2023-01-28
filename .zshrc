@@ -18,6 +18,8 @@ export SSH=$HOME/.ssh/
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export VISUAL=vim
 
+alias v="nvim"
+
 #color schemes in tmux
 alias tmux="TERM=screen-256color-bce tmux"
 
