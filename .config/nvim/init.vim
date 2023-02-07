@@ -7,22 +7,27 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCM
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'junegunn/gv.vim'                                                    " https://github.com/junegunn/gv.vim
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }  " https://github.com/iamcco/markdown-preview.nvim
-Plug 'preservim/nerdtree',                                                " https://github.com/preservim/nerdtree
-Plug 'ryanoasis/vim-devicons'                                             " https://github.com/ryanoasis/vim-devicons
-Plug 'Xuyuanp/nerdtree-git-plugin'                                        " https://github.com/Xuyuanp/nerdtree-git-plugin
-Plug 'tmhedberg/simpylfold'                                               " https://github.com/tmhedberg/SimpylFold
-Plug 'godlygeek/tabular'                                                  " https://github.com/godlygeek/tabular
-Plug 'tpope/vim-commentary'                                               " https://github.com/tpope/vim-commentary
-Plug 'tpope/vim-fugitive'                                                 " https://github.com/tpope/vim-fugitive
-Plug 'airblade/vim-gitgutter'                                             " https://github.com/airblade/vim-gitgutter
-Plug 'plasticboy/vim-markdown'                                            " https://github.com/plasticboy/vim-markdown
-Plug 'tpope/vim-rhubarb'                                                  " https://github.com/tpope/vim-rhubarb
-Plug 'tpope/vim-surround'                                                 " https://github.com/tpope/vim-surround
+Plug 'junegunn/gv.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tmhedberg/simpylfold'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-surround'
 Plug 'github/copilot.vim'
 Plug 'numToStr/Comment.nvim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'pwntester/octo.nvim'
+
+Plug 'ldelossa/gh.nvim'
+Plug 'ldelossa/litee.nvim'
 call plug#end()
 
 if has('termguicolors')
@@ -61,6 +66,53 @@ set number
 lua << EOF
 require('Comment').setup()
 require('telescope').load_extension('file_browser')
+require('octo').setup()
+
+require('litee.lib').setup()
+require('litee.gh').setup({
+  -- deprecated, around for compatability for now.
+  jump_mode   = "invoking",
+  -- remap the arrow keys to resize any litee.nvim windows.
+  map_resize_keys = false,
+  -- do not map any keys inside any gh.nvim buffers.
+  disable_keymaps = false,
+  -- the icon set to use.
+  icon_set = "default",
+  -- any custom icons to use.
+  icon_set_custom = nil,
+  -- whether to register the @username and #issue_number omnifunc completion
+  -- in buffers which start with .git/
+  git_buffer_completion = true,
+  -- defines keymaps in gh.nvim buffers.
+  keymaps = {
+      -- when inside a gh.nvim panel, this key will open a node if it has
+      -- any futher functionality. for example, hitting <CR> on a commit node
+      -- will open the commit's changed files in a new gh.nvim panel.
+      open = "<CR>",
+      -- when inside a gh.nvim panel, expand a collapsed node
+      expand = "zo",
+      -- when inside a gh.nvim panel, collpased and expanded node
+      collapse = "zc",
+      -- when cursor is over a "#1234" formatted issue or PR, open its details
+      -- and comments in a new tab.
+      goto_issue = "gd",
+      -- show any details about a node, typically, this reveals commit messages
+      -- and submitted review bodys.
+      details = "d",
+      -- inside a convo buffer, submit a comment
+      submit_comment = "<C-s>",
+      -- inside a convo buffer, when your cursor is ontop of a comment, open
+      -- up a set of actions that can be performed.
+      actions = "<C-a>",
+      -- inside a thread convo buffer, resolve the thread.
+      resolve_thread = "<C-r>",
+      -- inside a gh.nvim panel, if possible, open the node's web URL in your
+      -- browser. useful particularily for digging into external failed CI
+      -- checks.
+      goto_web = "gx"
+  }
+})
+
 EOF
 
 " ======== COC SETUP ========
