@@ -7,19 +7,17 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCM
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'junegunn/gv.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tmhedberg/simpylfold'
-Plug 'godlygeek/tabular'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'plasticboy/vim-markdown'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-surround'
+Plug 'junegunn/gv.vim'                                                    " https://github.com/junegunn/gv.vim
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }  " https://github.com/iamcco/markdown-preview.nvim
+Plug 'preservim/nerdtree',                                                " https://github.com/preservim/nerdtree
+Plug 'ryanoasis/vim-devicons'                                             " https://github.com/ryanoasis/vim-devicons
+Plug 'Xuyuanp/nerdtree-git-plugin'                                        " https://github.com/Xuyuanp/nerdtree-git-plugin
+Plug 'tpope/vim-commentary'                                               " https://github.com/tpope/vim-commentary
+Plug 'tpope/vim-fugitive'                                                 " https://github.com/tpope/vim-fugitive
+Plug 'airblade/vim-gitgutter'                                             " https://github.com/airblade/vim-gitgutter
+Plug 'plasticboy/vim-markdown'                                            " https://github.com/plasticboy/vim-markdown
+Plug 'tpope/vim-rhubarb'                                                  " https://github.com/tpope/vim-rhubarb
+Plug 'tpope/vim-surround'                                                 " https://github.com/tpope/vim-surround
 Plug 'github/copilot.vim'
 Plug 'numToStr/Comment.nvim'
 Plug 'christoomey/vim-tmux-navigator'
