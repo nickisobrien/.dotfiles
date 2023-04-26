@@ -13,12 +13,11 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 alias subl="/Applications/Sublime\ Text.app/Contents/MacOS/sublime_text"
+alias v="vim"
 
 export SSH=$HOME/.ssh/
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export VISUAL=vim
-
-alias v="nvim"
 
 #color schemes in tmux
 alias tmux="TERM=screen-256color-bce tmux"
@@ -31,7 +30,7 @@ alias npmrc="nvim ~/.npmrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh/oh-my-zsh.sh"
 alias ohmyzshp="nvim ~/.oh-my-zsh/oh-my-zsh-private.sh"
 alias vimrc="nvim ~/.config/nvim/init.vim"
-alias zshcfg="nvim ~/.zshrc"
+alias zshrc="nvim ~/.zshrc"
 
 # tmux aliases
 alias t='tmux attach || tmux new-session'
@@ -57,6 +56,7 @@ alias gb='git branch'
 alias gba='git branch --all'
 
 alias gd='git diff'
+alias gdc='git diff --cached'
 alias gds='git diff --staged'
 alias gdt='git difftool'
 
@@ -76,9 +76,13 @@ alias gld='git log --decorate --graph --patch'  # Show diff. 'gld' = 'git log di
 alias glda='git log --decorate --graph --patch --all'
 alias glad='glda'
 
-alias gp='git push'
+alias gp='git pull'
 alias gpo='git push origin'
 alias gpom='git push origin master'
 
 alias gri='git rebase --interactive'
 alias grc='git rebase --continue'
+
+gsrb() {
+  git stash && git rebase -i HEAD~$1 && git stash pop
+}
