@@ -61,6 +61,7 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>ft <cmd>Telescope file_browser<cr>
+nnoremap <leader>fr <cmd>Telescope resume<cr>
 
 " Open NERDTree
 nnoremap <leader>nt <cmd>NERDTreeFocus<cr>
