@@ -1,29 +1,43 @@
 call plug#begin('~/.config/nvim/plugged')
+
+" Color scheme and status line
 Plug 'sainnhe/sonokai'
 Plug 'itchyny/lightline.vim'
+
+" File navigation and searching
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'junegunn/gv.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'godlygeek/tabular'
-Plug 'tpope/vim-commentary'
+
+" Git integration
+Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-surround'
 Plug 'github/copilot.vim'
+Plug 'pwntester/octo.nvim'
+
+" Markdown support
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'plasticboy/vim-markdown'
+
+" Code commenting and formatting
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-commentary'
 Plug 'numToStr/Comment.nvim'
+Plug 'tpope/vim-surround'
+
+" Other plugins
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'pwntester/octo.nvim'
+Plug 'jellydn/CopilotChat.nvim'
+
 call plug#end()
 
 if has('termguicolors')
@@ -51,6 +65,8 @@ nnoremap <leader>ft <cmd>Telescope file_browser<cr>
 " Open NERDTree
 nnoremap <leader>nt <cmd>NERDTreeFocus<cr>
 
+set nofoldenable
+
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -65,8 +81,26 @@ set number
 lua << EOF
 require('Comment').setup()
 require('telescope').load_extension('file_browser')
-require('octo').setup()
+-- require('octo').setup()
 EOF
+
+lua << EOF
+require("CopilotChat").setup({
+  debug = false, -- Enable or disable debug mode
+  mode = "split", -- 'split' or other display mode
+  prompts = {
+    Explain = "Explain how it works.",
+    Review = "Review the following code and provide concise suggestions.",
+    Tests = "Briefly explain how the selected code works, then generate unit tests.",
+    Refactor = "Refactor the code to improve clarity and readability.",
+  }
+})
+EOF
+
+nmap <leader>cce <cmd>CopilotChatExplain<CR>
+nmap <leader>cct <cmd>CopilotChatTests<CR>
+nmap <leader>ccr <cmd>CopilotChatReview<CR>
+nmap <leader>ccR <cmd>CopilotChatRefactor<CR>
 
 " ======== COC SETUP ========
 " May need for vim (not neovim) since coc.nvim calculate byte offset by count
