@@ -13,7 +13,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 alias subl="/Applications/Sublime\ Text.app/Contents/MacOS/sublime_text"
-alias v="vim"
+alias v="/opt/homebrew/bin/nvim"
 
 export SSH=$HOME/.ssh/
 export PATH="/usr/local/opt/openssl/bin:$PATH"
@@ -59,6 +59,7 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gds='git diff --staged'
 alias gdt='git difftool'
+alias gdmoved='git diff --color-moved=zebra'
 
 alias gmt='git mergetool'
 
@@ -83,6 +84,31 @@ alias gpom='git push origin master'
 alias gri='git rebase --interactive'
 alias grc='git rebase --continue'
 
+alias grss='git restore --source=origin/staging --staged --worktree -- '
+
 gsrb() {
   git stash && git rebase -i HEAD~$1 && git stash pop
 }
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/nickobrien/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/nickobrien/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/nickobrien/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/nickobrien/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+conda activate harvey_backend
+
+export GIT_EDITOR=nvim
+
+export PYTHONPATH=$PYTHONPATH:/Users/${USER}/harveyai/backend
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+source /Users/nickobrien/Harvey/backend/scripts/shell_helpers/kube_helpers.sh
