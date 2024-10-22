@@ -6,7 +6,7 @@ Plug 'itchyny/lightline.vim'
 
 " File navigation and searching
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'preservim/nerdtree'
@@ -18,8 +18,8 @@ Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb'
-Plug 'github/copilot.vim'
-Plug 'pwntester/octo.nvim'
+Plug 'zbirenbaum/copilot.lua'
+" Plug 'pwntester/octo.nvim'
 
 " Markdown support
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -36,9 +36,35 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'jellydn/CopilotChat.nvim'
+Plug 'sbdchd/neoformat'
+Plug 'sindrets/diffview.nvim'
+
+" Avante
+" Deps
+Plug 'stevearc/dressing.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+" Optional deps
+Plug 'HakonHarnes/img-clip.nvim'
+" install avante
+Plug 'yetone/avante.nvim'
+
+
+" Dap
+Plug 'mfussenegger/nvim-dap'
+Plug 'mxsdev/nvim-dap-vscode-js'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'mfussenegger/nvim-dap-python'
+Plug 'theHamsta/nvim-dap-virtual-text'
 
 call plug#end()
+
+" HARVEY specific - `which python`
+lua << EOF
+require("dap-python").setup("/Users/nickobrien/miniconda3/envs/harvey_backend/bin/python")
+require("nvim-dap-virtual-text").setup()
+EOF
 
 if has('termguicolors')
     set termguicolors
@@ -55,18 +81,44 @@ let g:lightline.colorscheme = 'sonokai'
 " Map jj to escape
 imap jj <Esc>
 
+" Avante setup
+autocmd! User avante.nvim lua require('avante_lib').load()
+lua << EOF
+require('avante').setup({
+    provider = "copilot",
+    behaviour = {
+        auto_set_highlight_group = true,
+    },
+    mappings = {
+        ask = "<leader>aa",
+        submit = {
+            normal = "<Enter>",
+            insert = "<C-l>",
+        },
+    },
+})
+EOF
+
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>ft <cmd>Telescope file_browser<cr>
-nnoremap <leader>fr <cmd>Telescope resume<cr>
+nnoremap <leader>fj <cmd>Telescope resume<cr>
+
+" Git blame
+nnoremap <leader>gb <cmd>Git blame<cr>
 
 " Open NERDTree
 nnoremap <leader>nt <cmd>NERDTreeFocus<cr>
+let NERDTreeShowHidden=1
 
 set nofoldenable
+
+" Neoformat: https://prettier.io/docs/en/vim
+let g:neoformat_try_node_exe = 1
+autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx Neoformat
 
 set expandtab
 set tabstop=2
@@ -82,26 +134,126 @@ set number
 lua << EOF
 require('Comment').setup()
 require('telescope').load_extension('file_browser')
+
 -- require('octo').setup()
 EOF
 
+" Map \gy to GBrowse
+nnoremap <leader>gy :GBrowse<cr>
+
 lua << EOF
-require("CopilotChat").setup({
-  debug = false, -- Enable or disable debug mode
-  mode = "split", -- 'split' or other display mode
-  prompts = {
-    Explain = "Explain how it works.",
-    Review = "Review the following code and provide concise suggestions.",
-    Tests = "Briefly explain how the selected code works, then generate unit tests.",
-    Refactor = "Refactor the code to improve clarity and readability.",
-  }
+require('copilot').setup({
+  panel = {
+    enabled = true,
+    auto_refresh = false,
+    keymap = {
+      jump_prev = "[[",
+      jump_next = "]]",
+      accept = "<CR>",
+      refresh = "gr",
+      open = "<M-CR>"
+    },
+    layout = {
+      position = "bottom", -- | top | left | right
+      ratio = 0.4
+    },
+  },
+  suggestion = {
+    enabled = true,
+    auto_trigger = true,
+    debounce = 75,
+    keymap = {
+      accept = "<C-l>",
+      -- accept_word = false,
+      -- accept_line = false,
+      -- dismiss = "<C-]>",
+      next = "<C-j>",
+      prev = "<C-k>",
+    },
+  },
 })
 EOF
 
-nmap <leader>cce <cmd>CopilotChatExplain<CR>
-nmap <leader>cct <cmd>CopilotChatTests<CR>
-nmap <leader>ccr <cmd>CopilotChatReview<CR>
-nmap <leader>ccR <cmd>CopilotChatRefactor<CR>
+lua << EOF
+local dap = require("dap")
+vim.keymap.set('n', '<F5>', require 'dap'.continue)
+vim.keymap.set('n', '<F10>', require 'dap'.step_over)
+vim.keymap.set('n', '<F11>', require 'dap'.step_into)
+vim.keymap.set('n', '<F12>', require 'dap'.step_out)
+vim.keymap.set('n', '<leader>b', require 'dap'.toggle_breakpoint)
+vim.keymap.set('n', '<leader>B', function()
+  require 'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))
+end)
+
+dap.configurations.python = {
+   {
+      name = "Harvey Backend Flask",
+      type = "debugpy",
+      request = "launch",
+      module = "flask",
+      console = "integratedTerminal",
+      env = {
+        FLASK_APP = "main.py",
+        FLASK_DEBUG = "1"
+      },
+      args = {
+        "run",
+        "--no-debugger",
+        "--host=127.0.0.1",
+        "--port=8000"
+      },
+      jinja = true,
+      justMyCode = true
+   }
+}
+
+
+require("dap-vscode-js").setup({
+  -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
+  debugger_path = "/Users/nickobrien/vscode-js/vscode-js-debug" , -- Path to vscode-js-debug installation.
+  -- debugger_cmd = { "extension" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
+  adapters = { 'chrome', 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost', 'node', 'chrome' }, -- which adapters to register in nvim-dap
+  -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
+  -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
+  -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
+})
+
+local js_based_languages = { "typescript", "javascript", "typescriptreact" }
+
+for _, language in ipairs(js_based_languages) do
+  require("dap").configurations[language] = {
+    {
+      type = "pwa-node",
+      request = "launch",
+      name = "Launch file",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+    },
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach",
+      processId = require 'dap.utils'.pick_process,
+      cwd = "${workspaceFolder}",
+    },
+    {
+      type = "pwa-chrome",
+      request = "launch",
+      name = "Start Chrome with \"localhost\"",
+      url = "http://localhost:3000",
+      webRoot = "${workspaceFolder}",
+      userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir"
+    }
+  }
+end
+
+require("dapui").setup()
+
+local dap, dapui = require("dap"), require("dapui")
+
+vim.keymap.set('n', '<leader>ui', require 'dapui'.toggle)
+
+EOF
 
 " ======== COC SETUP ========
 " May need for vim (not neovim) since coc.nvim calculate byte offset by count
