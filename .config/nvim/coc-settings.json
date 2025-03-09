@@ -1,0 +1,8 @@
+{
+  "typescript.format.enable": true,
+  "javascript.preferences.useAliasesForRenames": false,
+  "pyright.inlayHints.variableTypes": false,
+  "pyright.inlayHints.parameterTypes": false,
+  "pyright.inlayHints.functionReturnTypes": false
+}
+

@@ -29,7 +29,7 @@ source $(brew --prefix nvm)/nvm.sh
 alias npmrc="nvim ~/.npmrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh/oh-my-zsh.sh"
 alias ohmyzshp="nvim ~/.oh-my-zsh/oh-my-zsh-private.sh"
-alias vimrc="nvim ~/.config/nvim/init.vim"
+alias vimrc="nvim ~/.config/nvim/init.lua"
 alias zshrc="nvim ~/.zshrc"
 
 # tmux aliases
@@ -112,3 +112,6 @@ export GIT_EDITOR=nvim
 export PYTHONPATH=$PYTHONPATH:/Users/${USER}/harveyai/backend
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 source /Users/nickobrien/Harvey/backend/scripts/shell_helpers/kube_helpers.sh
+
+
+stty -ixon
