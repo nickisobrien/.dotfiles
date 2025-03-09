@@ -13,7 +13,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 alias subl="/Applications/Sublime\ Text.app/Contents/MacOS/sublime_text"
-alias v="vim"
+alias v="/opt/homebrew/bin/nvim"
 
 export SSH=$HOME/.ssh/
 export PATH="/usr/local/opt/openssl/bin:$PATH"
@@ -29,7 +29,7 @@ source $(brew --prefix nvm)/nvm.sh
 alias npmrc="nvim ~/.npmrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh/oh-my-zsh.sh"
 alias ohmyzshp="nvim ~/.oh-my-zsh/oh-my-zsh-private.sh"
-alias vimrc="nvim ~/.config/nvim/init.vim"
+alias vimrc="nvim ~/.config/nvim/init.lua"
 alias zshrc="nvim ~/.zshrc"
 
 # tmux aliases
@@ -59,6 +59,7 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gds='git diff --staged'
 alias gdt='git difftool'
+alias gdmoved='git diff --color-moved=zebra'
 
 alias gmt='git mergetool'
 
@@ -83,6 +84,12 @@ alias gpom='git push origin master'
 alias gri='git rebase --interactive'
 alias grc='git rebase --continue'
 
+alias grss='git restore --source=origin/staging --staged --worktree -- '
+
 gsrb() {
   git stash && git rebase -i HEAD~$1 && git stash pop
 }
+
+export GIT_EDITOR=nvim
+
+stty -ixon
