@@ -23,7 +23,7 @@ export VISUAL=vim
 alias tmux="TERM=screen-256color-bce tmux"
 
 export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+source $(NVM_DIR)/nvm.sh
 
 # Cfg Aliases
 alias npmrc="nvim ~/.npmrc"
