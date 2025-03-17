@@ -11,6 +11,7 @@ brew install --cask iterm2
 brew install --cask spotify
 brew install gh
 brew install tmux
+brew install yarn
 
 # oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
