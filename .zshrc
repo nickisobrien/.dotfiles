@@ -12,6 +12,12 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Option+Left/Right: jump words on the command line
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+# Option+Backspace: delete word backward
+bindkey "^[^?" backward-kill-word
+
 alias subl="/Applications/Sublime\ Text.app/Contents/MacOS/sublime_text"
 alias v="/opt/homebrew/bin/nvim"
 
@@ -23,7 +29,7 @@ export VISUAL=vim
 alias tmux="TERM=screen-256color-bce tmux"
 
 export NVM_DIR=~/.nvm
-source $(NVM_DIR)/nvm.sh
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # Cfg Aliases
 alias npmrc="nvim ~/.npmrc"
@@ -93,3 +99,4 @@ gsrb() {
 export GIT_EDITOR=nvim
 
 stty -ixon
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
