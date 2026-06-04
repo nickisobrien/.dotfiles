@@ -20,7 +20,7 @@ require("lazy").setup({
   { "sainnhe/sonokai" },
   { "itchyny/lightline.vim" },
   { "nvim-lua/plenary.nvim" },
-  { "nvim-telescope/telescope.nvim", tag = "0.1.4" },
+  { "nvim-telescope/telescope.nvim", tag = "0.1.8" },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" },
   { "nvim-telescope/telescope-file-browser.nvim" },
   { "preservim/nerdtree" },
@@ -30,16 +30,14 @@ require("lazy").setup({
   { "tpope/vim-fugitive" },
   { "airblade/vim-gitgutter" },
   { "tpope/vim-rhubarb" },
-  { "zbirenbaum/copilot.lua" },
-  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
-  { "plasticboy/vim-markdown" },
+  -- { "zbirenbaum/copilot.lua" },
   { "godlygeek/tabular" },
   { "tpope/vim-commentary" },
   { "numToStr/Comment.nvim" },
   { "sbdchd/neoformat" },
   { "tpope/vim-surround" },
   { "neoclide/coc.nvim", branch = "release" },
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter", branch = "master", build = ":TSUpdate" },
   {
     "christoomey/vim-tmux-navigator",
     cmd = {
@@ -70,59 +68,67 @@ require("lazy").setup({
   { "mfussenegger/nvim-dap-python" },
   { "theHamsta/nvim-dap-virtual-text" },
   { "RRethy/vim-illuminate" },
-  {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    lazy = false,
-    version = false, -- set this if you want to always pull the latest change
-    opts = {
-      provider = "copilot",
-      mappings = {
-        ask = "<leader>aa",
-        submit = {
-          normal = "<Enter>",
-          insert = "<C-l>",
-        },
-      },
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      --- The below dependencies are optional,
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua", -- for providers='copilot'
-      {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-    },
-  }
+  -- {
+  --   "yetone/avante.nvim",
+  --   event = "VeryLazy",
+  --   lazy = false,
+  --   version = false, -- set this if you want to always pull the latest change
+  --   opts = {
+  --     provider = "copilot",
+  --     mappings = {
+  --       ask = "<leader>aa",
+  --       submit = {
+  --         normal = "<Enter>",
+  --         insert = "<C-l>",
+  --       },
+  --     },
+  --   },
+  --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --   build = "make",
+  --   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "stevearc/dressing.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     --- The below dependencies are optional,
+  --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+  --     -- "zbirenbaum/copilot.lua", -- for providers='copilot'
+  --     {
+  --       -- support for image pasting
+  --       "HakonHarnes/img-clip.nvim",
+  --       event = "VeryLazy",
+  --       opts = {
+  --         -- recommended settings
+  --         default = {
+  --           embed_image_as_base64 = false,
+  --           prompt_for_file_name = false,
+  --           drag_and_drop = {
+  --             insert_mode = true,
+  --           },
+  --           -- required for Windows users
+  --           use_absolute_path = true,
+  --         },
+  --       },
+  --     },
+  --     {
+  --       -- Make sure to set this up properly if you have lazy=true
+  --       'MeanderingProgrammer/render-markdown.nvim',
+  --       opts = {
+  --         file_types = { "markdown", "Avante" },
+  --       },
+  --       ft = { "markdown", "Avante" },
+  --     },
+  --   },
+  -- }
+})
+
+-- Disable treesitter for markdown (parser ABI mismatch on nvim 0.12)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "markdown_inline" },
+  callback = function()
+    pcall(vim.treesitter.stop)
+  end,
 })
 
 -- General Vim settings
@@ -149,6 +155,9 @@ vim.g.lightline.colorscheme = 'sonokai'
 -- Key Mappings
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fp', function()
+  require('telescope.builtin').find_files({ default_text = vim.fn.expand('%:.') })
+end, { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true, silent = true })
@@ -168,33 +177,33 @@ vim.cmd([[
 require('Comment').setup()
 require('telescope').load_extension('file_browser')
 
-require('copilot').setup({
-  panel = {
-    enabled = true,
-    auto_refresh = false,
-    keymap = {
-      jump_prev = "[[",
-      jump_next = "]]",
-      accept = "<CR>",
-      refresh = "gr",
-      open = "<M-CR>"
-    },
-    layout = {
-      position = "bottom",
-      ratio = 0.4
-    },
-  },
-  suggestion = {
-    enabled = true,
-    auto_trigger = true,
-    debounce = 75,
-    keymap = {
-      accept = "<C-l>",
-      next = "<C-j>",
-      prev = "<C-k>",
-    },
-  },
-})
+-- require('copilot').setup({
+--   panel = {
+--     enabled = true,
+--     auto_refresh = false,
+--     keymap = {
+--       jump_prev = "[[",
+--       jump_next = "]]",
+--       accept = "<CR>",
+--       refresh = "gr",
+--       open = "<M-CR>"
+--     },
+--     layout = {
+--       position = "bottom",
+--       ratio = 0.4
+--     },
+--   },
+--   suggestion = {
+--     enabled = true,
+--     auto_trigger = true,
+--     debounce = 75,
+--     keymap = {
+--       accept = "<C-l>",
+--       next = "<C-j>",
+--       prev = "<C-k>",
+--     },
+--   },
+-- })
 
 require("dap-python").setup("/Users/nickobrien/miniconda3/envs/harvey_backend/bin/python")
 require("nvim-dap-virtual-text").setup()

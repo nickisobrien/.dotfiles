@@ -12,6 +12,8 @@ brew install --cask spotify
 brew install gh
 brew install tmux
 brew install yarn
+brew install node
+brew install cmake
 
 # oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -25,6 +27,10 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
 
 # nvim undo log
 mkdir -p ~/.vim/undodir
+
+# nvim config
+mkdir -p ~/.config
+ln -sfn "$(pwd)/.config/nvim" ~/.config/nvim
 
 # update zsh
 cp .zshrc ~/.zshrc
