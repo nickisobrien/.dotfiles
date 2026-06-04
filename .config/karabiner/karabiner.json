@@ -17,7 +17,7 @@
                 },
                 "rules": [
                     {
-                        "description": "Right Ctrl+; → Play/Pause",
+                        "description": "Gaming Keyboard: Right Ctrl+; → Play/Pause",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -25,12 +25,20 @@
                                     "key_code": "semicolon",
                                     "modifiers": { "mandatory": ["right_control"] }
                                 },
-                                "to": [{ "consumer_key_code": "play_or_pause" }]
+                                "to": [{ "consumer_key_code": "play_or_pause" }],
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            { "vendor_id": 9610, "product_id": 268 }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     },
                     {
-                        "description": "Right Ctrl+' → Fast Forward",
+                        "description": "Gaming Keyboard: Right Ctrl+' → Fast Forward",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -38,12 +46,20 @@
                                     "key_code": "quote",
                                     "modifiers": { "mandatory": ["right_control"] }
                                 },
-                                "to": [{ "consumer_key_code": "fast_forward" }]
+                                "to": [{ "consumer_key_code": "fast_forward" }],
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            { "vendor_id": 9610, "product_id": 268 }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     },
                     {
-                        "description": "Right Ctrl+L → Rewind",
+                        "description": "Gaming Keyboard: Right Ctrl+L → Rewind",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -51,12 +67,20 @@
                                     "key_code": "l",
                                     "modifiers": { "mandatory": ["right_control"] }
                                 },
-                                "to": [{ "consumer_key_code": "rewind" }]
+                                "to": [{ "consumer_key_code": "rewind" }],
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            { "vendor_id": 9610, "product_id": 268 }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     },
                     {
-                        "description": "Right Ctrl+, → Mute",
+                        "description": "Gaming Keyboard: Right Ctrl+, → Mute",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -64,12 +88,20 @@
                                     "key_code": "comma",
                                     "modifiers": { "mandatory": ["right_control"] }
                                 },
-                                "to": [{ "consumer_key_code": "mute" }]
+                                "to": [{ "consumer_key_code": "mute" }],
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            { "vendor_id": 9610, "product_id": 268 }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     },
                     {
-                        "description": "Right Ctrl+. → Volume Down",
+                        "description": "Gaming Keyboard: Right Ctrl+. → Volume Down",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -77,12 +109,20 @@
                                     "key_code": "period",
                                     "modifiers": { "mandatory": ["right_control"] }
                                 },
-                                "to": [{ "consumer_key_code": "volume_decrement" }]
+                                "to": [{ "consumer_key_code": "volume_decrement" }],
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            { "vendor_id": 9610, "product_id": 268 }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     },
                     {
-                        "description": "Right Ctrl+/ → Volume Up",
+                        "description": "Gaming Keyboard: Right Ctrl+/ → Volume Up",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -90,38 +130,57 @@
                                     "key_code": "slash",
                                     "modifiers": { "mandatory": ["right_control"] }
                                 },
-                                "to": [{ "consumer_key_code": "volume_increment" }]
+                                "to": [{ "consumer_key_code": "volume_increment" }],
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            { "vendor_id": 9610, "product_id": 268 }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     }
                 ]
             },
-            "devices": [],
+            "devices": [
+                {
+                    "identifiers": {
+                        "vendor_id": 9610,
+                        "product_id": 268,
+                        "is_keyboard": true
+                    },
+                    "ignore": false,
+                    "manipulate_caps_lock_led": true,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "escape" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "right_option" },
+                            "to": [{ "key_code": "right_command" }]
+                        },
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "right_option" }]
+                        }
+                    ]
+                }
+            ],
             "fn_function_keys": [],
             "name": "Default profile",
             "selected": true,
-            "simple_modifications": [
-                {
-                    "from": { "key_code": "caps_lock" },
-                    "to": [{ "key_code": "escape" }]
-                },
-                {
-                    "from": { "key_code": "left_option" },
-                    "to": [{ "key_code": "left_command" }]
-                },
-                {
-                    "from": { "key_code": "right_option" },
-                    "to": [{ "key_code": "right_command" }]
-                },
-                {
-                    "from": { "key_code": "left_command" },
-                    "to": [{ "key_code": "left_option" }]
-                },
-                {
-                    "from": { "key_code": "right_command" },
-                    "to": [{ "key_code": "right_option" }]
-                }
-            ],
+            "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "keyboard_type_v2": "ansi"
             }
