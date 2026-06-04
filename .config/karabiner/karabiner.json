@@ -54,6 +54,45 @@
                                 "to": [{ "consumer_key_code": "rewind" }]
                             }
                         ]
+                    },
+                    {
+                        "description": "Ctrl+Shift+, (Ctrl+<) → Mute",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "comma",
+                                    "modifiers": { "mandatory": ["control", "shift"] }
+                                },
+                                "to": [{ "consumer_key_code": "mute" }]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Ctrl+, → Volume Down",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "comma",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [{ "consumer_key_code": "volume_decrement" }]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Ctrl+. → Volume Up",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "period",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [{ "consumer_key_code": "volume_increment" }]
+                            }
+                        ]
                     }
                 ]
             },
