@@ -17,78 +17,78 @@
                 },
                 "rules": [
                     {
-                        "description": "Ctrl+; → Play/Pause",
+                        "description": "Right Ctrl+; → Play/Pause",
                         "manipulators": [
                             {
                                 "type": "basic",
                                 "from": {
                                     "key_code": "semicolon",
-                                    "modifiers": { "mandatory": ["control"] }
+                                    "modifiers": { "mandatory": ["right_control"] }
                                 },
                                 "to": [{ "consumer_key_code": "play_or_pause" }]
                             }
                         ]
                     },
                     {
-                        "description": "Ctrl+' → Fast Forward",
+                        "description": "Right Ctrl+' → Fast Forward",
                         "manipulators": [
                             {
                                 "type": "basic",
                                 "from": {
                                     "key_code": "quote",
-                                    "modifiers": { "mandatory": ["control"] }
+                                    "modifiers": { "mandatory": ["right_control"] }
                                 },
                                 "to": [{ "consumer_key_code": "fast_forward" }]
                             }
                         ]
                     },
                     {
-                        "description": "Ctrl+L → Rewind",
+                        "description": "Right Ctrl+L → Rewind",
                         "manipulators": [
                             {
                                 "type": "basic",
                                 "from": {
                                     "key_code": "l",
-                                    "modifiers": { "mandatory": ["control"] }
+                                    "modifiers": { "mandatory": ["right_control"] }
                                 },
                                 "to": [{ "consumer_key_code": "rewind" }]
                             }
                         ]
                     },
                     {
-                        "description": "Ctrl+, → Mute",
+                        "description": "Right Ctrl+, → Mute",
                         "manipulators": [
                             {
                                 "type": "basic",
                                 "from": {
                                     "key_code": "comma",
-                                    "modifiers": { "mandatory": ["control"] }
+                                    "modifiers": { "mandatory": ["right_control"] }
                                 },
                                 "to": [{ "consumer_key_code": "mute" }]
                             }
                         ]
                     },
                     {
-                        "description": "Ctrl+. → Volume Down",
+                        "description": "Right Ctrl+. → Volume Down",
                         "manipulators": [
                             {
                                 "type": "basic",
                                 "from": {
                                     "key_code": "period",
-                                    "modifiers": { "mandatory": ["control"] }
+                                    "modifiers": { "mandatory": ["right_control"] }
                                 },
                                 "to": [{ "consumer_key_code": "volume_decrement" }]
                             }
                         ]
                     },
                     {
-                        "description": "Ctrl+/ → Volume Up",
+                        "description": "Right Ctrl+/ → Volume Up",
                         "manipulators": [
                             {
                                 "type": "basic",
                                 "from": {
                                     "key_code": "slash",
-                                    "modifiers": { "mandatory": ["control"] }
+                                    "modifiers": { "mandatory": ["right_control"] }
                                 },
                                 "to": [{ "consumer_key_code": "volume_increment" }]
                             }
