@@ -56,20 +56,7 @@
                         ]
                     },
                     {
-                        "description": "Ctrl+Shift+, (Ctrl+<) → Mute",
-                        "manipulators": [
-                            {
-                                "type": "basic",
-                                "from": {
-                                    "key_code": "comma",
-                                    "modifiers": { "mandatory": ["control", "shift"] }
-                                },
-                                "to": [{ "consumer_key_code": "mute" }]
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Ctrl+, → Volume Down",
+                        "description": "Ctrl+, → Mute",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -77,17 +64,30 @@
                                     "key_code": "comma",
                                     "modifiers": { "mandatory": ["control"] }
                                 },
-                                "to": [{ "consumer_key_code": "volume_decrement" }]
+                                "to": [{ "consumer_key_code": "mute" }]
                             }
                         ]
                     },
                     {
-                        "description": "Ctrl+. → Volume Up",
+                        "description": "Ctrl+. → Volume Down",
                         "manipulators": [
                             {
                                 "type": "basic",
                                 "from": {
                                     "key_code": "period",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [{ "consumer_key_code": "volume_decrement" }]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Ctrl+/ → Volume Up",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "slash",
                                     "modifiers": { "mandatory": ["control"] }
                                 },
                                 "to": [{ "consumer_key_code": "volume_increment" }]
@@ -101,6 +101,10 @@
             "name": "Default profile",
             "selected": true,
             "simple_modifications": [
+                {
+                    "from": { "key_code": "caps_lock" },
+                    "to": [{ "key_code": "escape" }]
+                },
                 {
                     "from": { "key_code": "left_option" },
                     "to": [{ "key_code": "left_command" }]
