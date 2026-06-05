@@ -147,6 +147,14 @@
             "devices": [
                 {
                     "identifiers": {
+                        "is_built_in_keyboard": true
+                    },
+                    "ignore": true,
+                    "manipulate_caps_lock_led": false,
+                    "simple_modifications": []
+                },
+                {
+                    "identifiers": {
                         "vendor_id": 9610,
                         "product_id": 268,
                         "is_keyboard": true
